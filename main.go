@@ -23,9 +23,11 @@ func init() {
 		IGNORE_APP_IDS[app_id] = true
 	}
 
-	dur, err := time.ParseDuration(os.Getenv("WORKSPACE_TIMEOUT"))
-	if err != nil {
-		WORKSPACE_TIMEOUT = dur
+	if durStr, ok := os.LookupEnv("WORKSPACE_TIMEOUT"); ok {
+		dur, err := time.ParseDuration(durStr)
+		if err != nil {
+			WORKSPACE_TIMEOUT = dur
+		}
 	}
 }
 
