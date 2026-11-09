@@ -171,7 +171,7 @@ func pidActive(tree *sway.Node, pid uint32) bool {
 			return true
 		}
 
-		if *pidHolder.InhibitIdle {
+		if pidHolder.IdleInhibitors.Application != "none" || pidHolder.IdleInhibitors.User != "none" {
 			slog.Debug("not suspending as another window with same PID hsa inhibitor", slog.Uint64("pid", uint64(pid)))
 			return true
 		}
