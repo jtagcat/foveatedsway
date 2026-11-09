@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	slogenv "github.com/cbrewster/slog-env"
 	"github.com/joshuarubin/go-sway"
 	"github.com/jtagcat/util/std"
 )
@@ -19,6 +20,9 @@ var (
 )
 
 func init() {
+	logger := slog.New(slogenv.NewHandler(slog.NewTextHandler(os.Stderr, nil)))
+	slog.SetDefault(logger)
+
 	for _, app_id := range strings.Split(os.Getenv("IGNORE_APP_IDS"), ",") {
 		IGNORE_APP_IDS[app_id] = true
 	}
@@ -27,6 +31,7 @@ func init() {
 		dur, err := time.ParseDuration(durStr)
 		if err != nil {
 			WORKSPACE_TIMEOUT = dur
+			slog.Debug("workspace timeout set", slog.String("timeout", dur.String()), slog.String("from", "env"))
 		}
 	}
 }

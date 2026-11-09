@@ -1,6 +1,6 @@
 # foveatedsway
 
-Ctrl-Z (SIGSTOP) applications in sway when the workspace hasn't been accessed in a while, and resume (SIGCONT) when it becomes visible again.
+Ctrl-Z (SIGSTOP) applications in sway when the workspace hasn't been accessed in a while, and resume (SIGCONT) when it becomes visible again. Inspired by Firefox draining battery and fan noise in the background.
 
 Accounts for:
 - Inhibitors
@@ -11,11 +11,17 @@ Accounts for:
 ```env
 IGNORE_APP_IDS=foot,thunar
 WORKSPACE_TIMEOUT=2m # default 90s
+GO_LOG=debug # debug, [info], warn, error
 ```
 
 ## Installation
 ```sh
 go install github.com/jtagcat/foveatedsway@latest
+```
+
+## Usage
+```sh
+exec env IGNORE_APP_IDS=foot,thunar foveatedsway
 ```
 
 ## TODO
